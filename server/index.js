@@ -42,9 +42,13 @@ app.get("/api/health", (_req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 JEE Buddy server running on port ${PORT}`);
-  console.log(
-    `📡 Gemini AI: ${isConfigured() ? "Configured ✅" : "NOT configured ❌ — set GEMINI_API_KEY in .env"}`
-  );
-});
+if (process.env.VERCEL !== "1") {
+  app.listen(PORT, () => {
+    console.log(`🚀 JEE Buddy server running on port ${PORT}`);
+    console.log(
+      `📡 Gemini AI: ${isConfigured() ? "Configured ✅" : "NOT configured ❌ — set GEMINI_API_KEY in .env"}`
+    );
+  });
+}
+
+module.exports = app;
