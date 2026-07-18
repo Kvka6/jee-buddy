@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { GraduationCap, MessageCircleQuestion, BookOpen, PenTool, PlayCircle, CalendarDays, Menu, X } from 'lucide-react';
+import { GraduationCap, MessageCircleQuestion, BookOpen, PenTool, PlayCircle, CalendarDays, Globe, Menu, X } from 'lucide-react';
 
 const NAV_ITEMS = [
   { path: '/', label: 'Home', icon: GraduationCap },
@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { path: '/practice', label: 'Practice', icon: PenTool },
   { path: '/videos', label: 'Videos', icon: PlayCircle },
   { path: '/planner', label: 'Planner', icon: CalendarDays },
+  { path: '/resources', label: 'Resources', icon: Globe },
 ];
 
 export default function Navbar() {

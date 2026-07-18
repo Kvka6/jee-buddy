@@ -6,6 +6,7 @@ import Syllabus from './pages/Syllabus';
 import Practice from './pages/Practice';
 import Videos from './pages/Videos';
 import Planner from './pages/Planner';
+import Resources from './pages/Resources';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="/practice" element={<Practice />} />
           <Route path="/videos" element={<Videos />} />
           <Route path="/planner" element={<Planner />} />
+          <Route path="/resources" element={<Resources />} />
         </Routes>
       </main>
     </div>

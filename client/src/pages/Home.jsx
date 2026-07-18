@@ -1,17 +1,18 @@
 import { Link } from 'react-router-dom';
-import { MessageCircleQuestion, BookOpen, PenTool, PlayCircle, CalendarDays, Rocket, Target, Brain, Trophy } from 'lucide-react';
+import { MessageCircleQuestion, BookOpen, PenTool, PlayCircle, CalendarDays, Globe, Rocket, Target, Brain, Trophy } from 'lucide-react';
 
 const FEATURES = [
   { path: '/doubt', icon: MessageCircleQuestion, title: 'AI Doubt Solver', desc: 'Ask any Physics, Chemistry, or Maths doubt — get step-by-step solutions instantly', color: 'from-blue-500 to-cyan-500' },
-  { path: '/syllabus', icon: BookOpen, title: 'Syllabus & Notes', desc: 'Complete CBSE Class 11 & 12 syllabus with chapter-wise notes and formulas', color: 'from-emerald-500 to-green-500' },
-  { path: '/practice', icon: PenTool, title: 'Practice Problems', desc: 'JEE Main, Advanced & CBSE level MCQs with detailed solutions', color: 'from-amber-500 to-orange-500' },
-  { path: '/videos', icon: PlayCircle, title: 'Video Lectures', desc: 'Curated YouTube videos from top educators — Physics Wallah, Mohit Tyagi & more', color: 'from-red-500 to-pink-500' },
-  { path: '/planner', icon: CalendarDays, title: 'Study Planner', desc: 'AI-powered personalized study schedules for JEE + CBSE board prep', color: 'from-purple-500 to-violet-500' },
+  { path: '/syllabus', icon: BookOpen, title: 'Syllabus & Formulas', desc: 'Complete CBSE Class 11 & 12 syllabus with built-in formulas + optional AI notes', color: 'from-emerald-500 to-green-500' },
+  { path: '/practice', icon: PenTool, title: 'Practice Problems', desc: 'Built-in question bank + AI-generated MCQs — CBSE, JEE Main & Advanced', color: 'from-amber-500 to-orange-500' },
+  { path: '/videos', icon: PlayCircle, title: 'Video Lectures', desc: 'Curated YouTube channels & search links — Physics Wallah, Mohit Tyagi & more', color: 'from-red-500 to-pink-500' },
+  { path: '/planner', icon: CalendarDays, title: 'Study Planner', desc: 'Weekly study schedules for JEE + CBSE board prep', color: 'from-purple-500 to-violet-500' },
+  { path: '/resources', icon: Globe, title: 'Resources & Links', desc: 'NCERT textbooks, PYQs, useful websites, and curated study material', color: 'from-cyan-500 to-teal-500' },
 ];
 
 const STATS = [
   { icon: Target, label: 'Subjects', value: '3 (PCM)' },
-  { icon: Brain, label: 'Chapters', value: '42+' },
+  { icon: Brain, label: 'Chapters', value: '87' },
   { icon: Trophy, label: 'For Exams', value: 'JEE + CBSE' },
 ];
 
