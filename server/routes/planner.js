@@ -121,8 +121,9 @@ router.post("/custom", async (req, res) => {
     const hoursPerDay = Math.min(Math.max(parseFloat(req.body.hoursPerDay) || 5, 1), 16);
     const currentClass = sanitize(req.body.currentClass) || "11";
     const additionalNotes = sanitize(req.body.additionalNotes);
+    const lang = req.body.lang === 'te' ? 'te' : 'en';
 
-    const cacheKey = `planner:${weakSubjects}:${targetExamDate}:${hoursPerDay}`.toLowerCase();
+    const cacheKey = `planner:${lang}:${weakSubjects}:${targetExamDate}:${hoursPerDay}`.toLowerCase();
     const cached = cache.get(cacheKey);
     if (cached) return res.json({ plan: cached, cached: true });
 
@@ -140,6 +141,10 @@ Your plan should:
 Return the plan in a structured markdown format with clear time tables.
 Include motivational notes — this is a 16-year-old who needs encouragement!`;
 
+    const tenglishAddition = `\n\nIMPORTANT: Respond in TENGLISH (Telugu written in English/Roman script). Use Telugu words in English letters for explanations and tips. Keep subject names, time slots, and technical terms in English. Be encouraging in Telugu style.`;
+
+    const finalPlannerPrompt = lang === 'te' ? systemPrompt + tenglishAddition : systemPrompt;
+
     const userMessage = [
       "Create a personalized study plan:",
       `Available study hours per day (excluding school): ${hoursPerDay}`,
@@ -149,7 +154,7 @@ Include motivational notes — this is a 16-year-old who needs encouragement!`;
       additionalNotes ? `Additional notes: ${additionalNotes}` : "",
     ].filter(Boolean).join("\n");
 
-    const plan = await callGemini(systemPrompt, userMessage);
+    const plan = await callGemini(finalPlannerPrompt, userMessage);
 
     if (plan && typeof plan === "object" && plan.error) {
       return res.status(429).json({ error: plan.message, retryAfterSec: plan.retryAfterSec });

@@ -4,6 +4,7 @@ import { BookOpen, ChevronDown, ChevronRight, Star, BarChart3, Sparkles, AlertCi
 import API_BASE from '../config';
 import LoadingSpinner from '../components/LoadingSpinner';
 import MarkdownRenderer from '../components/MarkdownRenderer';
+import { useLang } from '../context/LangContext';
 import FORMULAS from '../data/formulas';
 
 const SUBJECTS = ['Physics', 'Chemistry', 'Mathematics'];
@@ -19,6 +20,7 @@ export default function Syllabus() {
   const [notes, setNotes] = useState('');
   const [notesLoading, setNotesLoading] = useState(false);
   const [notesError, setNotesError] = useState('');
+  const { lang } = useLang();
 
   useEffect(() => {
     setLoading(true);
@@ -39,7 +41,7 @@ export default function Syllabus() {
     setNotesLoading(true);
     setNotesError('');
     try {
-      const res = await axios.get(`${API_BASE}/syllabus/${subject}/${encodeURIComponent(chapter.name)}/notes`);
+      const res = await axios.get(`${API_BASE}/syllabus/${subject}/${encodeURIComponent(chapter.name)}/notes`, { params: { lang } });
       setNotes(res.data.notes);
     } catch (err) {
       const msg = err.response?.data?.error || 'Failed to load AI notes.';

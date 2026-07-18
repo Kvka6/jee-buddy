@@ -4,6 +4,7 @@ import { CalendarDays, Clock, BookOpen, PenTool, RotateCcw, Brain, Coffee, Gradu
 import API_BASE from '../config';
 import LoadingSpinner from '../components/LoadingSpinner';
 import MarkdownRenderer from '../components/MarkdownRenderer';
+import { useLang } from '../context/LangContext';
 
 const TYPE_ICONS = { study: BookOpen, practice: PenTool, revision: Brain, test: GraduationCap, break: Coffee, school: GraduationCap };
 const TYPE_COLORS = {
@@ -25,6 +26,7 @@ export default function Planner() {
   const [customLoading, setCustomLoading] = useState(false);
   const [weakSubjects, setWeakSubjects] = useState('');
   const [hoursPerDay, setHoursPerDay] = useState(5);
+  const { lang } = useLang();
 
   useEffect(() => {
     axios.get(`${API_BASE}/planner/default`)
@@ -38,7 +40,7 @@ export default function Planner() {
     try {
       const res = await axios.post(`${API_BASE}/planner/custom`, {
         weakSubjects, hoursPerDay, currentClass: '11',
-        additionalNotes: 'Focus on both JEE and CBSE board preparation',
+        additionalNotes: 'Focus on both JEE and CBSE board preparation', lang,
       });
       setCustomPlan(res.data.plan);
     } catch { setCustomPlan('Failed to generate plan.'); }

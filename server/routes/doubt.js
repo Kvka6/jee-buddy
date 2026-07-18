@@ -6,6 +6,17 @@ const { callGemini } = require("../services/gemini");
 // Cache responses for 1 hour
 const cache = new NodeCache({ stdTTL: 3600 });
 
+const TENGLISH_INSTRUCTION = `
+
+IMPORTANT LANGUAGE INSTRUCTION: Respond in TENGLISH — Telugu language written in English/Roman script.
+- Use Telugu words written in English letters for all explanations and conversational parts
+- Keep ALL technical terms, formulas, equations, chemical names, and scientific terms in English
+- Keep LaTeX math exactly as is in English
+- Mix naturally like how Telugu students actually speak: "Force ante oka object meeda apply chesina push or pull. Newton's second law prakaram, F = ma, ikkada F ante force, m ante mass, a ante acceleration."
+- Use simple Telugu that a 16-year-old from Andhra/Telangana would easily understand
+- Section headers can stay in English but add Telugu translation: "## Key Concepts (Mukhyamaina Vishayalu)"
+- Keep the friendly, encouraging tone in Telugu style`;
+
 const SYSTEM_PROMPT = `You are an expert JEE (Main + Advanced) and CBSE board exam teacher. You help students in Class 11 and Class 12 who are preparing for JEE Main, JEE Advanced (IIT entrance), and CBSE board exams simultaneously.
 
 Your rules:
@@ -29,13 +40,14 @@ router.post("/", async (req, res) => {
     const question = sanitizeInput(req.body.question);
     const subject = sanitizeInput(req.body.subject);
     const chapter = sanitizeInput(req.body.chapter);
+    const lang = req.body.lang === 'te' ? 'te' : 'en';
 
     if (!question) {
       return res.status(400).json({ error: "Question is required." });
     }
 
     // Build cache key
-    const cacheKey = `doubt:${subject}:${chapter}:${question}`.toLowerCase();
+    const cacheKey = `doubt:${lang}:${subject}:${chapter}:${question}`.toLowerCase();
     const cached = cache.get(cacheKey);
     if (cached) {
       return res.json({ answer: cached, cached: true });
@@ -49,7 +61,8 @@ router.post("/", async (req, res) => {
       .filter(Boolean)
       .join("\n");
 
-    const answer = await callGemini(SYSTEM_PROMPT, userMessage);
+    const finalPrompt = lang === 'te' ? SYSTEM_PROMPT + TENGLISH_INSTRUCTION : SYSTEM_PROMPT;
+    const answer = await callGemini(finalPrompt, userMessage);
 
     // Handle key exhaustion
     if (answer && typeof answer === "object" && answer.error) {

@@ -4,6 +4,7 @@ import { Send, Sparkles, Eraser, BookOpen, AlertCircle, Clock } from 'lucide-rea
 import API_BASE from '../config';
 import MarkdownRenderer from '../components/MarkdownRenderer';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { useLang } from '../context/LangContext';
 
 const SUBJECTS = ['Physics', 'Chemistry', 'Mathematics'];
 const QUICK_QUESTIONS = [
@@ -23,6 +24,7 @@ export default function DoubtSolver() {
   const [error, setError] = useState('');
   const [history, setHistory] = useState([]);
   const answerRef = useRef(null);
+  const { lang } = useLang();
 
   async function askDoubt(q) {
     const text = q || question;
@@ -31,7 +33,7 @@ export default function DoubtSolver() {
     setError('');
     setAnswer('');
     try {
-      const res = await axios.post(`${API_BASE}/doubt`, { question: text, subject });
+      const res = await axios.post(`${API_BASE}/doubt`, { question: text, subject, lang });
       setAnswer(res.data.answer);
       setHistory(prev => [{ question: text, subject, answer: res.data.answer, time: new Date() }, ...prev.slice(0, 9)]);
       setTimeout(() => answerRef.current?.scrollIntoView({ behavior: 'smooth' }), 100);

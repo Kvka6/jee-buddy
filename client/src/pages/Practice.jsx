@@ -5,6 +5,7 @@ import API_BASE from '../config';
 import LoadingSpinner from '../components/LoadingSpinner';
 import MarkdownRenderer from '../components/MarkdownRenderer';
 import QUESTIONS, { getSubjects, getChapters, getQuestions, getAllSubjectQuestions, getRandomQuestions } from '../data/questions';
+import { useLang } from '../context/LangContext';
 
 const SUBJECTS = ['Physics', 'Chemistry', 'Mathematics'];
 const CHAPTERS = {
@@ -34,6 +35,7 @@ export default function Practice() {
   const [answered, setAnswered] = useState(0);
   const [explanation, setExplanation] = useState('');
   const [explLoading, setExplLoading] = useState(false);
+  const { lang } = useLang();
 
   function loadOfflineProblems() {
     let qs = [];
@@ -66,7 +68,7 @@ export default function Practice() {
     setSelected(null);
     setShowAnswer(false);
     try {
-      const res = await axios.get(`${API_BASE}/problems`, { params: { subject, chapter, difficulty } });
+      const res = await axios.get(`${API_BASE}/problems`, { params: { subject, chapter, difficulty, lang } });
       setProblems(res.data.problems || []);
     } catch { setProblems([]); }
     finally { setLoading(false); }
@@ -91,7 +93,7 @@ export default function Practice() {
     try {
       const p = problems[current];
       const res = await axios.post(`${API_BASE}/problems/check`, {
-        question: p.question, userAnswer: selected, correctAnswer: p.correctAnswer, subject,
+        question: p.question, userAnswer: selected, correctAnswer: p.correctAnswer, subject, lang,
       });
       setExplanation(res.data.explanation);
     } catch { setExplanation('Failed to load explanation.'); }

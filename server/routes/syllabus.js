@@ -744,6 +744,7 @@ router.get("/:subject/:chapter/notes", async (req, res) => {
   try {
     const subject = sanitize(req.params.subject);
     const chapter = sanitize(req.params.chapter);
+    const lang = req.query.lang === 'te' ? 'te' : 'en';
 
     if (!subject || !chapter) {
       return res
@@ -751,7 +752,7 @@ router.get("/:subject/:chapter/notes", async (req, res) => {
         .json({ error: "Subject and chapter are required." });
     }
 
-    const cacheKey = `notes:${subject}:${chapter}`.toLowerCase();
+    const cacheKey = `notes:${lang}:${subject}:${chapter}`.toLowerCase();
     const cached = cache.get(cacheKey);
     if (cached) return res.json({ notes: cached, cached: true });
 
@@ -778,13 +779,21 @@ Create well-structured notes that include:
 Use markdown formatting with LaTeX math ($$...$$ for block, $...$ for inline equations).
 Keep it concise but comprehensive — like the perfect revision notes.`;
 
+    const tenglishAddition = `\n\nIMPORTANT LANGUAGE INSTRUCTION: Respond in TENGLISH (Telugu written in English/Roman script).
+- Use Telugu words in English letters for explanations
+- Keep ALL formulas, equations, technical terms, and LaTeX in English
+- Mix naturally: "Velocity ante displacement divided by time. Units lo m/s lo untundi."
+- Section headers in English with Telugu: "## Key Concepts (Mukhyamaina Vishayalu)"`;
+
+    const finalNotesPrompt = lang === 'te' ? systemPrompt + tenglishAddition : systemPrompt;
+
     const userMessage = `Create concise revision notes for:
 Subject: ${subject}
 Chapter: ${chapter}
 ${chapterData ? `Topics to cover: ${chapterData.topics.join(", ")}` : ""}
 ${chapterData ? `Difficulty: ${chapterData.difficulty}` : ""}`;
 
-    const notes = await callGemini(systemPrompt, userMessage);
+    const notes = await callGemini(finalNotesPrompt, userMessage);
 
     if (notes && typeof notes === "object" && notes.error) {
       return res.status(429).json({ error: notes.message, retryAfterSec: notes.retryAfterSec });

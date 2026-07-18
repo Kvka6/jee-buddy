@@ -5,6 +5,8 @@ const { callGemini } = require("../services/gemini");
 
 const cache = new NodeCache({ stdTTL: 3600 });
 
+const TENGLISH_INSTRUCTION = `\nIMPORTANT: Write the "explanation" field in TENGLISH (Telugu written in English/Roman script). Keep the question, options, and all math/formulas in English. Only the explanation should be in Tenglish. Example explanation: "Ikkada manakem F = ma use cheyali. Mass 5 kg, force 10 N unte, acceleration = 10/5 = 2 m/s² vastundi."`;
+
 const DIFFICULTY_MAP = {
   easy: "CBSE board exam level — straightforward application of concepts",
   medium:
@@ -23,6 +25,7 @@ router.get("/", async (req, res) => {
     const subject = sanitize(req.query.subject);
     const chapter = sanitize(req.query.chapter);
     const difficulty = sanitize(req.query.difficulty) || "medium";
+    const lang = req.query.lang === 'te' ? 'te' : 'en';
 
     if (!subject || !chapter) {
       return res
@@ -37,7 +40,7 @@ router.get("/", async (req, res) => {
     }
 
     const cacheKey =
-      `problems:${subject}:${chapter}:${difficulty}`.toLowerCase();
+      `problems:${lang}:${subject}:${chapter}:${difficulty}`.toLowerCase();
     const cached = cache.get(cacheKey);
     if (cached) return res.json({ problems: cached, cached: true });
 
@@ -54,12 +57,14 @@ Each object in the array must have:
 - "difficulty": "${difficulty}"
 - "examRelevance": which exam this is relevant for ("CBSE", "JEE Main", "JEE Advanced", or combination)`;
 
+    const finalPrompt = lang === 'te' ? systemPrompt + TENGLISH_INSTRUCTION : systemPrompt;
+
     const userMessage = `Generate 5 MCQ problems for:
 Subject: ${subject}
 Chapter: ${chapter}
 Difficulty: ${difficulty} (${DIFFICULTY_MAP[difficulty]})`;
 
-    const response = await callGemini(systemPrompt, userMessage);
+    const response = await callGemini(finalPrompt, userMessage);
 
     if (response && typeof response === "object" && response.error) {
       return res.status(429).json({ error: response.message, retryAfterSec: response.retryAfterSec });
@@ -162,6 +167,7 @@ router.post("/check", async (req, res) => {
     const userAnswer = sanitize(req.body.userAnswer);
     const correctAnswer = sanitize(req.body.correctAnswer);
     const subject = sanitize(req.body.subject);
+    const lang = req.body.lang === 'te' ? 'te' : 'en';
 
     if (!question || !userAnswer) {
       return res
@@ -183,6 +189,10 @@ The student answered a question. Provide:
 
 Use markdown formatting with LaTeX math ($$...$$ for block, $...$ for inline).`;
 
+    const finalCheckPrompt = lang === 'te'
+      ? systemPrompt + '\n\nIMPORTANT: Respond in TENGLISH (Telugu written in English/Roman script). Keep formulas and math in English. Explain in Telugu using English letters.'
+      : systemPrompt;
+
     const userMessage = `Question: ${question}
 Student's Answer: ${userAnswer}
 ${correctAnswer ? `Correct Answer: ${correctAnswer}` : ""}
@@ -190,7 +200,7 @@ ${subject ? `Subject: ${subject}` : ""}
 
 Please explain the solution in detail.`;
 
-    const explanation = await callGemini(systemPrompt, userMessage);
+    const explanation = await callGemini(finalCheckPrompt, userMessage);
 
     res.json({
       isCorrect: correctAnswer ? isCorrect : null,
