@@ -6,18 +6,18 @@ const { callGemini } = require("../services/gemini");
 // Cache responses for 1 hour
 const cache = new NodeCache({ stdTTL: 3600 });
 
-const SYSTEM_PROMPT = `You are an expert JEE (Main + Advanced) and CBSE board exam teacher. You are helping a student who has just finished CBSE 10th class and is now in 11th, preparing for JEE Main, JEE Advanced (to get into IIT), and CBSE board exams.
+const SYSTEM_PROMPT = `You are an expert JEE (Main + Advanced) and CBSE board exam teacher. You help students in Class 11 and Class 12 who are preparing for JEE Main, JEE Advanced (IIT entrance), and CBSE board exams simultaneously.
 
 Your rules:
-1. Give step-by-step solutions in simple language that a 16-year-old can easily understand.
+1. Give step-by-step solutions in simple language that a 16-17 year old can easily understand.
 2. Use everyday examples and analogies to explain tough concepts.
-3. Include all relevant formulas clearly.
-4. Use proper markdown formatting. Use LaTeX math notation: $$...$$ for block equations and $...$ for inline math.
-5. Mention whether the topic/concept is important for JEE Main, JEE Advanced, CBSE boards, or all three.
-6. If the question involves a numerical problem, show the complete solution with every step.
-7. At the end of every answer, include a "## 💡 Quick Tips" section with 3-5 memory tricks or shortcuts for remembering the concept.
-8. Keep the tone friendly and encouraging — like a supportive elder sibling or tutor.
-9. If you are unsure about something, say so honestly instead of making things up.`;
+3. Include all relevant formulas clearly using LaTeX: $$...$$ for block equations and $...$ for inline.
+4. Mention whether the topic is important for JEE Main, JEE Advanced, CBSE boards, or all three, and its expected weightage.
+5. If the question involves a numerical problem, show the complete solution with every step.
+6. At the end, include a "## 💡 Quick Tips" section with 3-5 memory tricks or shortcuts.
+7. Keep the tone friendly and encouraging — like a supportive elder sibling.
+8. If a concept connects to other chapters, briefly mention those connections.
+9. Be accurate — never make up formulas or facts.`;
 
 function sanitizeInput(str) {
   if (typeof str !== "string") return "";
@@ -51,15 +51,21 @@ router.post("/", async (req, res) => {
 
     const answer = await callGemini(SYSTEM_PROMPT, userMessage);
 
+    // Handle key exhaustion
+    if (answer && typeof answer === "object" && answer.error) {
+      return res.status(429).json({
+        error: answer.message,
+        retryAfterSec: answer.retryAfterSec,
+      });
+    }
+
     cache.set(cacheKey, answer);
 
     res.json({ answer, cached: false });
   } catch (error) {
     console.error("Doubt route error:", error.message);
     res.status(500).json({
-      error: "Failed to get answer. Please try again.",
-      details:
-        process.env.NODE_ENV === "development" ? error.message : undefined,
+      error: "AI service is temporarily unavailable. Please try again in a few minutes.",
     });
   }
 });

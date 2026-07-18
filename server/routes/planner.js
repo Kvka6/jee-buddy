@@ -151,11 +151,15 @@ Include motivational notes — this is a 16-year-old who needs encouragement!`;
 
     const plan = await callGemini(systemPrompt, userMessage);
 
+    if (plan && typeof plan === "object" && plan.error) {
+      return res.status(429).json({ error: plan.message, retryAfterSec: plan.retryAfterSec });
+    }
+
     cache.set(cacheKey, plan);
     res.json({ plan, cached: false });
   } catch (error) {
     console.error("Planner custom error:", error.message);
-    res.status(500).json({ error: "Failed to generate study plan." });
+    res.status(500).json({ error: "AI service temporarily unavailable. Please try again shortly." });
   }
 });
 

@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import axios from 'axios';
-import { Send, Sparkles, Eraser, BookOpen } from 'lucide-react';
+import { Send, Sparkles, Eraser, BookOpen, AlertCircle, Clock } from 'lucide-react';
 import API_BASE from '../config';
 import MarkdownRenderer from '../components/MarkdownRenderer';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -36,7 +36,12 @@ export default function DoubtSolver() {
       setHistory(prev => [{ question: text, subject, answer: res.data.answer, time: new Date() }, ...prev.slice(0, 9)]);
       setTimeout(() => answerRef.current?.scrollIntoView({ behavior: 'smooth' }), 100);
     } catch (err) {
-      setError(err.response?.data?.error || 'Failed to get answer. Check if the server is running.');
+      const data = err.response?.data;
+      if (data?.retryAfterSec) {
+        setError(`${data.error} Try again in ${data.retryAfterSec} seconds.`);
+      } else {
+        setError(data?.error || 'Could not reach AI service. Please check your connection and try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -99,7 +104,17 @@ export default function DoubtSolver() {
 
       {/* Answer */}
       {loading && <LoadingSpinner text="Thinking... This may take a few seconds ⏳" />}
-      {error && <div className="bg-red-900/30 border border-red-500/30 text-red-300 px-4 py-3 rounded-lg">{error}</div>}
+      {error && (
+        <div className="bg-red-900/20 border border-red-500/20 text-red-300 px-5 py-4 rounded-xl flex items-start gap-3">
+          <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+          <div>
+            <p className="text-sm">{error}</p>
+            <button onClick={() => askDoubt()} className="text-xs text-red-400 underline mt-2 flex items-center gap-1">
+              <Clock className="w-3 h-3" /> Retry
+            </button>
+          </div>
+        </div>
+      )}
       {answer && (
         <div ref={answerRef} className="bg-slate-800 border border-slate-700 rounded-xl p-6 animate-fade-in">
           <div className="flex items-center gap-2 mb-4 pb-3 border-b border-slate-700">

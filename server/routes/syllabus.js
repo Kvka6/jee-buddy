@@ -7,7 +7,7 @@ const cache = new NodeCache({ stdTTL: 7200 }); // 2 hour cache
 
 // ─── COMPLETE CBSE CLASS 11 SYLLABUS DATA ────────────────────────────────────
 
-const SYLLABUS = {
+const SYLLABUS_11 = {
   Physics: [
     {
       name: "Units and Measurements",
@@ -653,20 +653,89 @@ const SYLLABUS = {
   ],
 };
 
+// ─── COMPLETE CBSE CLASS 12 SYLLABUS DATA ────────────────────────────────────
+
+const SYLLABUS_12 = {
+  Physics: [
+    { name: "Electric Charges and Fields", jeeWeightage: 8, cbseWeightage: 8, difficulty: "medium", topics: ["Electric charge and its properties", "Coulomb's law", "Electric field and field lines", "Electric dipole", "Electric flux", "Gauss's theorem and applications"] },
+    { name: "Electrostatic Potential and Capacitance", jeeWeightage: 8, cbseWeightage: 8, difficulty: "medium", topics: ["Electric potential and potential difference", "Equipotential surfaces", "Potential due to point charge and dipole", "Capacitors and capacitance", "Parallel plate capacitor", "Combination of capacitors", "Energy stored in capacitor"] },
+    { name: "Current Electricity", jeeWeightage: 9, cbseWeightage: 9, difficulty: "medium", topics: ["Electric current and drift velocity", "Ohm's law and resistance", "Resistivity and conductivity", "Combination of resistors", "Kirchhoff's laws", "Wheatstone bridge", "Metre bridge and potentiometer", "Cells, EMF and internal resistance"] },
+    { name: "Moving Charges and Magnetism", jeeWeightage: 8, cbseWeightage: 8, difficulty: "hard", topics: ["Magnetic force on a moving charge", "Motion of charged particle in magnetic field", "Biot-Savart law", "Ampere's circuital law", "Force on current-carrying conductor", "Force between parallel conductors", "Torque on current loop", "Moving coil galvanometer"] },
+    { name: "Magnetism and Matter", jeeWeightage: 4, cbseWeightage: 5, difficulty: "easy", topics: ["Bar magnet as solenoid", "Magnetic field lines", "Earth's magnetism", "Para-, dia- and ferromagnetic substances", "Hysteresis curve"] },
+    { name: "Electromagnetic Induction", jeeWeightage: 9, cbseWeightage: 8, difficulty: "hard", topics: ["Faraday's laws", "Lenz's law", "Motional EMF", "Eddy currents", "Self and mutual inductance", "AC generator"] },
+    { name: "Alternating Current", jeeWeightage: 7, cbseWeightage: 7, difficulty: "hard", topics: ["AC voltage applied to R, L, C", "Phasor diagrams", "LCR series circuit and resonance", "Power in AC circuits", "Wattless current", "LC oscillations", "Transformers"] },
+    { name: "Electromagnetic Waves", jeeWeightage: 3, cbseWeightage: 4, difficulty: "easy", topics: ["Displacement current", "Electromagnetic spectrum", "Properties of EM waves", "Uses of EM waves"] },
+    { name: "Ray Optics and Optical Instruments", jeeWeightage: 9, cbseWeightage: 9, difficulty: "medium", topics: ["Reflection and refraction", "Total internal reflection", "Lens maker's formula", "Prism and dispersion", "Combination of lenses", "Microscope", "Telescope", "Power and magnification"] },
+    { name: "Wave Optics", jeeWeightage: 8, cbseWeightage: 7, difficulty: "hard", topics: ["Huygens' principle", "Interference and Young's double slit", "Diffraction at single slit", "Resolving power", "Polarisation and Brewster's law"] },
+    { name: "Dual Nature of Radiation and Matter", jeeWeightage: 6, cbseWeightage: 6, difficulty: "medium", topics: ["Photoelectric effect", "Einstein's equation", "Photon characteristics", "de Broglie relation", "Davisson-Germer experiment"] },
+    { name: "Atoms", jeeWeightage: 6, cbseWeightage: 5, difficulty: "medium", topics: ["Rutherford's model", "Bohr model", "Energy levels", "Hydrogen spectrum", "de Broglie's explanation of quantisation"] },
+    { name: "Nuclei", jeeWeightage: 6, cbseWeightage: 6, difficulty: "medium", topics: ["Nuclear composition", "Mass-energy equivalence", "Binding energy", "Nuclear fission and fusion", "Radioactivity", "Half-life and mean life"] },
+    { name: "Semiconductor Electronics", jeeWeightage: 5, cbseWeightage: 7, difficulty: "medium", topics: ["Energy bands", "Intrinsic and extrinsic semiconductors", "p-n junction diode", "Rectifier", "Zener diode", "Photodiode, LED, solar cell", "Logic gates"] },
+  ],
+  Chemistry: [
+    { name: "The Solid State", jeeWeightage: 5, cbseWeightage: 5, difficulty: "medium", topics: ["Classification of solids", "Crystal lattice and unit cells", "Atoms in unit cell", "Close-packed structures", "Voids", "Density calculations", "Imperfections in solids"] },
+    { name: "Solutions", jeeWeightage: 7, cbseWeightage: 7, difficulty: "medium", topics: ["Types of solutions", "Henry's law", "Raoult's law", "Colligative properties", "Vapour pressure lowering", "Boiling point elevation", "Freezing point depression", "Osmotic pressure", "Van't Hoff factor"] },
+    { name: "Electrochemistry", jeeWeightage: 8, cbseWeightage: 8, difficulty: "hard", topics: ["Electrochemical cells", "Nernst equation", "Standard electrode potential", "Gibbs energy and EMF", "Conductance and molar conductivity", "Kohlrausch's law", "Electrolysis and Faraday's laws", "Batteries and corrosion"] },
+    { name: "Chemical Kinetics", jeeWeightage: 8, cbseWeightage: 8, difficulty: "hard", topics: ["Rate of reaction", "Order and molecularity", "Integrated rate equations", "Half-life", "Collision theory", "Arrhenius equation", "Temperature dependence of rate"] },
+    { name: "Surface Chemistry", jeeWeightage: 4, cbseWeightage: 4, difficulty: "easy", topics: ["Adsorption", "Freundlich isotherm", "Catalysis", "Colloids — classification and properties", "Emulsions", "Tyndall effect, Brownian movement"] },
+    { name: "General Principles of Isolation of Elements", jeeWeightage: 3, cbseWeightage: 4, difficulty: "easy", topics: ["Concentration, reduction, refining", "Ellingham diagram", "Electrolytic refining", "Extraction of Al, Cu, Zn, Fe"] },
+    { name: "The p-Block Elements (Class 12)", jeeWeightage: 7, cbseWeightage: 8, difficulty: "medium", topics: ["Group 15 — nitrogen compounds", "Group 16 — oxygen, ozone, sulphur", "Group 17 — halogens, interhalogen compounds", "Group 18 — noble gases", "Oxoacids structures"] },
+    { name: "The d- and f-Block Elements", jeeWeightage: 6, cbseWeightage: 7, difficulty: "medium", topics: ["Transition element properties", "Electronic configuration", "Colour and magnetic properties", "KMnO₄ and K₂Cr₂O₇", "Lanthanoids and actinoids", "Lanthanoid contraction"] },
+    { name: "Coordination Compounds", jeeWeightage: 8, cbseWeightage: 7, difficulty: "hard", topics: ["Werner's theory", "IUPAC nomenclature", "Isomerism", "Valence bond theory", "Crystal field theory", "Colour and magnetic properties", "Applications"] },
+    { name: "Haloalkanes and Haloarenes", jeeWeightage: 7, cbseWeightage: 7, difficulty: "medium", topics: ["Classification and preparation", "SN1 and SN2 mechanisms", "Elimination reactions", "Wurtz reaction", "Electrophilic substitution", "Polyhalogen compounds"] },
+    { name: "Alcohols, Phenols and Ethers", jeeWeightage: 7, cbseWeightage: 7, difficulty: "medium", topics: ["Preparation of alcohols", "Properties of alcohols", "Phenols — acidity and reactions", "Ethers — Williamson synthesis", "Distinction tests"] },
+    { name: "Aldehydes, Ketones and Carboxylic Acids", jeeWeightage: 9, cbseWeightage: 8, difficulty: "hard", topics: ["Nucleophilic addition", "Aldol condensation", "Cannizzaro reaction", "Oxidation and reduction", "Carboxylic acid acidity", "Hell-Volhard-Zelinsky reaction"] },
+    { name: "Amines", jeeWeightage: 7, cbseWeightage: 6, difficulty: "medium", topics: ["Classification and preparation", "Basicity of amines", "Gabriel phthalimide synthesis", "Hoffmann bromamide reaction", "Diazonium salts", "Coupling reaction"] },
+    { name: "Biomolecules", jeeWeightage: 3, cbseWeightage: 5, difficulty: "easy", topics: ["Carbohydrates", "Proteins and amino acids", "Enzymes", "Vitamins", "Nucleic acids — DNA and RNA"] },
+    { name: "Polymers", jeeWeightage: 2, cbseWeightage: 4, difficulty: "easy", topics: ["Classification", "Addition and condensation polymerisation", "Natural and synthetic rubber", "Important polymers", "Biodegradable polymers"] },
+    { name: "Chemistry in Everyday Life", jeeWeightage: 1, cbseWeightage: 3, difficulty: "easy", topics: ["Drug classification", "Antacids, analgesics, antibiotics", "Food preservatives", "Soaps and detergents"] },
+  ],
+  Mathematics: [
+    { name: "Relations and Functions (Class 12)", jeeWeightage: 5, cbseWeightage: 6, difficulty: "medium", topics: ["Types of relations", "Types of functions", "Composition of functions", "Invertible functions", "Binary operations"] },
+    { name: "Inverse Trigonometric Functions", jeeWeightage: 6, cbseWeightage: 5, difficulty: "medium", topics: ["Domain, range and principal value", "Graphs", "Properties and identities", "Simplification", "Equations involving inverse trig functions"] },
+    { name: "Matrices", jeeWeightage: 6, cbseWeightage: 7, difficulty: "medium", topics: ["Types of matrices", "Operations on matrices", "Transpose", "Symmetric and skew-symmetric", "Elementary operations", "Invertible matrices"] },
+    { name: "Determinants", jeeWeightage: 7, cbseWeightage: 8, difficulty: "medium", topics: ["Determinant of square matrix", "Properties", "Minors and cofactors", "Adjoint and inverse", "Cramer's rule", "Area of triangle", "Consistency of equations"] },
+    { name: "Continuity and Differentiability", jeeWeightage: 9, cbseWeightage: 8, difficulty: "hard", topics: ["Continuity at a point", "Differentiability", "Chain rule", "Implicit differentiation", "Inverse trig derivatives", "Logarithmic differentiation", "Rolle's and Mean Value Theorem", "Second order derivatives"] },
+    { name: "Application of Derivatives", jeeWeightage: 9, cbseWeightage: 8, difficulty: "hard", topics: ["Rate of change", "Increasing/decreasing functions", "Tangents and normals", "Maxima and minima", "Approximations", "Word problems"] },
+    { name: "Integrals", jeeWeightage: 10, cbseWeightage: 9, difficulty: "hard", topics: ["Integration by substitution", "Partial fractions", "Integration by parts", "Definite integrals", "Properties of definite integrals", "Fundamental theorem of calculus", "Special integrals"] },
+    { name: "Application of Integrals", jeeWeightage: 7, cbseWeightage: 7, difficulty: "hard", topics: ["Area under curves", "Area between two curves", "Area bounded by curve and axes"] },
+    { name: "Differential Equations", jeeWeightage: 8, cbseWeightage: 7, difficulty: "hard", topics: ["Order and degree", "Formation of DE", "Variable separable", "Homogeneous DE", "Linear DE of first order"] },
+    { name: "Vector Algebra", jeeWeightage: 7, cbseWeightage: 6, difficulty: "medium", topics: ["Vectors and scalars", "Types of vectors", "Position vector", "Dot product", "Cross product", "Scalar triple product"] },
+    { name: "Three Dimensional Geometry", jeeWeightage: 8, cbseWeightage: 7, difficulty: "hard", topics: ["Direction cosines", "Equation of a line", "Angle between lines", "Shortest distance between skew lines", "Equation of a plane", "Distance from a plane"] },
+    { name: "Linear Programming", jeeWeightage: 2, cbseWeightage: 6, difficulty: "easy", topics: ["Mathematical formulation", "Graphical method", "Feasible region", "Corner point method"] },
+    { name: "Probability (Class 12)", jeeWeightage: 8, cbseWeightage: 8, difficulty: "medium", topics: ["Conditional probability", "Multiplication theorem", "Independent events", "Bayes' theorem", "Random variables", "Binomial distribution"] },
+  ],
+};
+
+// Combined lookup
+const SYLLABUS = { 11: SYLLABUS_11, 12: SYLLABUS_12 };
+
 function sanitize(str) {
   if (typeof str !== "string") return "";
   return str.trim().slice(0, 200);
 }
 
-// GET /api/syllabus — full syllabus
-router.get("/", (_req, res) => {
+// GET /api/syllabus — full syllabus (both classes)
+router.get("/", (req, res) => {
+  const classNum = req.query.class; // optional: ?class=11 or ?class=12
+  if (classNum && SYLLABUS[classNum]) {
+    const data = SYLLABUS[classNum];
+    return res.json({
+      class: parseInt(classNum),
+      syllabus: data,
+      subjects: Object.keys(data),
+      totalChapters: Object.values(data).reduce((s, c) => s + c.length, 0),
+    });
+  }
+  // Return both classes
   res.json({
-    syllabus: SYLLABUS,
-    subjects: Object.keys(SYLLABUS),
-    totalChapters: Object.values(SYLLABUS).reduce(
-      (sum, chapters) => sum + chapters.length,
-      0
-    ),
+    classes: [11, 12],
+    syllabus: { 11: SYLLABUS_11, 12: SYLLABUS_12 },
+    subjects: Object.keys(SYLLABUS_11),
+    totalChapters: {
+      11: Object.values(SYLLABUS_11).reduce((s, c) => s + c.length, 0),
+      12: Object.values(SYLLABUS_12).reduce((s, c) => s + c.length, 0),
+    },
   });
 });
 
@@ -686,15 +755,17 @@ router.get("/:subject/:chapter/notes", async (req, res) => {
     const cached = cache.get(cacheKey);
     if (cached) return res.json({ notes: cached, cached: true });
 
-    // Find chapter in syllabus for context
-    const subjectData = SYLLABUS[subject];
-    const chapterData = subjectData?.find(
-      (ch) =>
-        ch.name.toLowerCase().includes(chapter.toLowerCase()) ||
-        chapter.toLowerCase().includes(ch.name.toLowerCase())
-    );
+    // Find chapter in both class syllabuses
+    let chapterData = null;
+    for (const cls of [SYLLABUS_11, SYLLABUS_12]) {
+      const subjectData = cls[subject];
+      const found = subjectData?.find(
+        (ch) => ch.name.toLowerCase().includes(chapter.toLowerCase()) || chapter.toLowerCase().includes(ch.name.toLowerCase())
+      );
+      if (found) { chapterData = found; break; }
+    }
 
-    const systemPrompt = `You are an expert JEE + CBSE teacher creating concise revision notes for a Class 11 student.
+    const systemPrompt = `You are an expert JEE + CBSE teacher creating concise revision notes for a Class 11/12 student.
 
 Create well-structured notes that include:
 1. Key Concepts — explained simply with examples
@@ -715,11 +786,15 @@ ${chapterData ? `Difficulty: ${chapterData.difficulty}` : ""}`;
 
     const notes = await callGemini(systemPrompt, userMessage);
 
+    if (notes && typeof notes === "object" && notes.error) {
+      return res.status(429).json({ error: notes.message, retryAfterSec: notes.retryAfterSec });
+    }
+
     cache.set(cacheKey, notes);
     res.json({ notes, subject, chapter, cached: false });
   } catch (error) {
     console.error("Syllabus notes error:", error.message);
-    res.status(500).json({ error: "Failed to generate notes." });
+    res.status(500).json({ error: "AI service temporarily unavailable. Please try again shortly." });
   }
 });
 
@@ -739,12 +814,14 @@ router.get("/:subject/:chapter/formulas", async (req, res) => {
     const cached = cache.get(cacheKey);
     if (cached) return res.json({ formulas: cached, cached: true });
 
-    const subjectData = SYLLABUS[subject];
-    const chapterData = subjectData?.find(
-      (ch) =>
-        ch.name.toLowerCase().includes(chapter.toLowerCase()) ||
-        chapter.toLowerCase().includes(ch.name.toLowerCase())
-    );
+    let chapterData = null;
+    for (const cls of [SYLLABUS_11, SYLLABUS_12]) {
+      const subjectData = cls[subject];
+      const found = subjectData?.find(
+        (ch) => ch.name.toLowerCase().includes(chapter.toLowerCase()) || chapter.toLowerCase().includes(ch.name.toLowerCase())
+      );
+      if (found) { chapterData = found; break; }
+    }
 
     const systemPrompt = `You are creating a formula sheet / cheat sheet for a JEE + CBSE student.
 
@@ -765,11 +842,15 @@ ${chapterData ? `Topics: ${chapterData.topics.join(", ")}` : ""}`;
 
     const formulas = await callGemini(systemPrompt, userMessage);
 
+    if (formulas && typeof formulas === "object" && formulas.error) {
+      return res.status(429).json({ error: formulas.message, retryAfterSec: formulas.retryAfterSec });
+    }
+
     cache.set(cacheKey, formulas);
     res.json({ formulas, subject, chapter, cached: false });
   } catch (error) {
     console.error("Syllabus formulas error:", error.message);
-    res.status(500).json({ error: "Failed to generate formula sheet." });
+    res.status(500).json({ error: "AI service temporarily unavailable." });
   }
 });
 

@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
-const { isConfigured } = require("./services/gemini");
+const { isConfigured, getKeyStats } = require("./services/gemini");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -38,6 +38,7 @@ app.get("/api/health", (_req, res) => {
   res.json({
     status: "ok",
     geminiConfigured: isConfigured(),
+    keyStats: getKeyStats(),
     uptime: process.uptime(),
   });
 });

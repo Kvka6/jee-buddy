@@ -61,9 +61,12 @@ Difficulty: ${difficulty} (${DIFFICULTY_MAP[difficulty]})`;
 
     const response = await callGemini(systemPrompt, userMessage);
 
+    if (response && typeof response === "object" && response.error) {
+      return res.status(429).json({ error: response.message, retryAfterSec: response.retryAfterSec });
+    }
+
     let problems;
     try {
-      // Try to extract JSON from the response
       const jsonMatch = response.match(/\[[\s\S]*\]/);
       if (jsonMatch) {
         problems = JSON.parse(jsonMatch[0]);
@@ -80,7 +83,7 @@ Difficulty: ${difficulty} (${DIFFICULTY_MAP[difficulty]})`;
     res.json({ problems, cached: false });
   } catch (error) {
     console.error("Problems GET error:", error.message);
-    res.status(500).json({ error: "Failed to fetch problems." });
+    res.status(500).json({ error: "AI service temporarily unavailable. Please try again shortly." });
   }
 });
 
@@ -131,6 +134,10 @@ Each object must have:
 
     const response = await callGemini(systemPrompt, userMessage);
 
+    if (response && typeof response === "object" && response.error) {
+      return res.status(429).json({ error: response.message, retryAfterSec: response.retryAfterSec });
+    }
+
     let problems;
     try {
       const jsonMatch = response.match(/\[[\s\S]*\]/);
@@ -144,7 +151,7 @@ Each object must have:
     res.json({ problems, count: problems.length });
   } catch (error) {
     console.error("Problems generate error:", error.message);
-    res.status(500).json({ error: "Failed to generate problems." });
+    res.status(500).json({ error: "AI service temporarily unavailable." });
   }
 });
 
