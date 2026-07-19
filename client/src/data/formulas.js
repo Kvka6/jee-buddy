@@ -56,7 +56,7 @@ const FORMULAS = {
         { formula: "$g_h = g\\left(1 - \\frac{2h}{R}\\right)$", desc: "g at height h (h << R)" },
         { formula: "$g_d = g\\left(1 - \\frac{d}{R}\\right)$", desc: "g at depth d" },
         { formula: "$v_e = \\sqrt{2gR} = \\sqrt{\\frac{2GM}{R}}$", desc: "Escape velocity" },
-        { formula: "$v_o = \\sqrt{gR} = \\sqrt{\\frac{GM}{R}}$", desc: "Orbital velocity" },
+        { formula: "$v_o = \\sqrt{\\frac{GM}{r}}$; near surface: $\\sqrt{gR}$", desc: "Orbital velocity (r = orbital radius)" },
         { formula: "$T^2 = \\frac{4\\pi^2}{GM}r^3$", desc: "Kepler's third law" },
         { formula: "$U = -\\frac{GMm}{r}$", desc: "Gravitational potential energy" },
       ],
@@ -271,7 +271,8 @@ const FORMULAS = {
         { formula: "$\\frac{V_s}{V_p} = \\frac{N_s}{N_p}$", desc: "Transformer equation" },
       ],
       "Ray Optics and Optical Instruments": [
-        { formula: "$\\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f}$", desc: "Mirror/lens formula" },
+        { formula: "$\\frac{1}{v} + \\frac{1}{u} = \\frac{1}{f}$", desc: "Mirror formula" },
+        { formula: "$\\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f}$", desc: "Thin lens formula" },
         { formula: "$m = -\\frac{v}{u}$ (mirror), $m = \\frac{v}{u}$ (lens)", desc: "Magnification (sign convention)" },
         { formula: "$n_1\\sin\\theta_1 = n_2\\sin\\theta_2$", desc: "Snell's law" },
         { formula: "$\\frac{1}{f} = (\\mu-1)\\left(\\frac{1}{R_1} - \\frac{1}{R_2}\\right)$", desc: "Lens maker's formula" },
