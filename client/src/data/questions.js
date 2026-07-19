@@ -197,8 +197,8 @@ const QUESTIONS = {
       {
         question: "The percentage of oxygen in Al₂O₃ (Al=27, O=16) is:",
         options: ["A) 47.06%", "B) 52.94%", "C) 31.37%", "D) 68.63%"],
-        correctAnswer: "B",
-        explanation: "M(Al₂O₃) = 2(27) + 3(16) = 102. %O = 48/102 × 100 = 47.06%. Wait: 48/102 = 47.06%. Actually A is correct. Let me recalculate: 3×16=48, 48/102×100 = 47.06%",
+        correctAnswer: "A",
+        explanation: "M(Al₂O₃) = 2(27) + 3(16) = 54 + 48 = 102. %O = (48/102) × 100 = 47.06%",
         examRelevance: "CBSE Board",
         difficulty: "easy",
       },
@@ -424,9 +424,9 @@ const QUESTIONS = {
       },
       {
         question: "∫ x·eˣ dx equals:",
-        options: ["A) xeˣ - eˣ + C", "B) xeˣ + eˣ + C", "C) eˣ(x+1) + C", "D) Both A and C"],
+        options: ["A) xeˣ - eˣ + C", "B) xeˣ + eˣ + C", "C) eˣ(x-1) + C", "D) Both A and C"],
         correctAnswer: "D",
-        explanation: "By parts: ∫xeˣdx = xeˣ - ∫eˣdx = xeˣ - eˣ + C = eˣ(x-1) + C. Wait, let me recheck: = xeˣ - eˣ + C. And eˣ(x-1)+C. Options: A says xeˣ - eˣ + C (correct). C says eˣ(x+1)+C which equals xeˣ + eˣ + C ≠ xeˣ - eˣ + C. So answer is A only.",
+        explanation: "By parts: ∫xeˣdx = xeˣ - ∫eˣdx = xeˣ - eˣ + C. This can be factored as eˣ(x-1) + C. So A and C are the same expression written differently.",
         examRelevance: "JEE Main",
         difficulty: "medium",
       },

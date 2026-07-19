@@ -223,7 +223,7 @@ const FORMULAS = {
         { formula: "$E_{dipole,axial} = \\frac{2kp}{r^3}$", desc: "Field on axial line of dipole" },
         { formula: "$E_{dipole,equat} = \\frac{kp}{r^3}$", desc: "Field on equatorial line of dipole" },
         { formula: "$\\oint \\vec{E} \\cdot d\\vec{A} = \\frac{q_{enc}}{\\varepsilon_0}$", desc: "Gauss's law" },
-        { formula: "$\\vec{p} = q \\times 2l$", desc: "Electric dipole moment" },
+        { formula: "$\\vec{p} = q \\times 2\\vec{l}$", desc: "Electric dipole moment (2l = separation)" },
       ],
       "Electrostatic Potential and Capacitance": [
         { formula: "$V = \\frac{kq}{r}$", desc: "Potential due to point charge" },
@@ -248,7 +248,7 @@ const FORMULAS = {
         { formula: "$F = qvB\\sin\\theta$", desc: "Force on moving charge in B field" },
         { formula: "$F = BIl\\sin\\theta$", desc: "Force on current-carrying conductor" },
         { formula: "$r = \\frac{mv}{qB}$", desc: "Radius of circular path in B field" },
-        { formula: "$B = \\frac{\\mu_0 I}{2\\pi r}$", desc: "Biot-Savart: field due to long wire" },
+        { formula: "$B = \\frac{\\mu_0 I}{2\\pi r}$", desc: "Magnetic field due to long straight wire" },
         { formula: "$B = \\mu_0 nI$", desc: "Field inside solenoid" },
         { formula: "$\\tau = NBIA\\sin\\theta$", desc: "Torque on current loop" },
         { formula: "$\\frac{F}{l} = \\frac{\\mu_0 I_1 I_2}{2\\pi d}$", desc: "Force between parallel conductors" },
@@ -272,7 +272,7 @@ const FORMULAS = {
       ],
       "Ray Optics and Optical Instruments": [
         { formula: "$\\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f}$", desc: "Mirror/lens formula" },
-        { formula: "$m = \\frac{-v}{u}$", desc: "Magnification" },
+        { formula: "$m = -\\frac{v}{u}$ (mirror), $m = \\frac{v}{u}$ (lens)", desc: "Magnification (sign convention)" },
         { formula: "$n_1\\sin\\theta_1 = n_2\\sin\\theta_2$", desc: "Snell's law" },
         { formula: "$\\frac{1}{f} = (\\mu-1)\\left(\\frac{1}{R_1} - \\frac{1}{R_2}\\right)$", desc: "Lens maker's formula" },
         { formula: "$P = \\frac{1}{f(m)}$", desc: "Power of lens (in diopters)" },
@@ -281,7 +281,7 @@ const FORMULAS = {
       "Wave Optics": [
         { formula: "$d\\sin\\theta = n\\lambda$", desc: "Young's double slit — maxima" },
         { formula: "$\\beta = \\frac{\\lambda D}{d}$", desc: "Fringe width (YDSE)" },
-        { formula: "$\\theta = \\frac{\\lambda}{a}$", desc: "Angular width of central max (single slit)" },
+        { formula: "$\\theta = \\frac{\\lambda}{a}$", desc: "Half-angular width of central max (full width = 2λ/a)" },
         { formula: "$I = I_0\\cos^2\\frac{\\phi}{2}$", desc: "Intensity in interference" },
         { formula: "$\\tan\\theta_B = \\mu$", desc: "Brewster's law (polarisation)" },
       ],
@@ -315,7 +315,7 @@ const FORMULAS = {
         { formula: "$E = E^0 - \\frac{RT}{nF}\\ln Q = E^0 - \\frac{0.0591}{n}\\log Q$", desc: "Nernst equation (at 25°C)" },
         { formula: "$\\Delta G^0 = -nFE^0$", desc: "Gibbs energy and EMF" },
         { formula: "$m = \\frac{MIt}{nF}$", desc: "Faraday's law of electrolysis" },
-        { formula: "$\\Lambda_m = \\frac{\\kappa}{c}$", desc: "Molar conductivity" },
+        { formula: "$\\Lambda_m = \\frac{\\kappa \\times 1000}{M}$", desc: "Molar conductivity (κ in S/cm, M in mol/L)" },
         { formula: "$\\Lambda^0_m = \\lambda^0_+ + \\lambda^0_-$", desc: "Kohlrausch's law" },
       ],
       "Chemical Kinetics": [
