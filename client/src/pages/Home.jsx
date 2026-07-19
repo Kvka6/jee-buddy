@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
-import { MessageCircleQuestion, BookOpen, PenTool, PlayCircle, CalendarDays, Globe, Rocket, Target, Brain, Trophy } from 'lucide-react';
+import { MessageCircleQuestion, BookOpen, PenTool, PlayCircle, CalendarDays, Globe, Rocket, Target, Brain, Trophy, BarChart3 } from 'lucide-react';
 
 const FEATURES = [
   { path: '/doubt', icon: MessageCircleQuestion, title: 'AI Doubt Solver', desc: 'Ask any Physics, Chemistry, or Maths doubt — get step-by-step solutions instantly', color: 'from-blue-500 to-cyan-500' },
   { path: '/syllabus', icon: BookOpen, title: 'Syllabus & Formulas', desc: 'Complete CBSE Class 11 & 12 syllabus with built-in formulas + optional AI notes', color: 'from-emerald-500 to-green-500' },
-  { path: '/practice', icon: PenTool, title: 'Practice Problems', desc: 'Built-in question bank + AI-generated MCQs — CBSE, JEE Main & Advanced', color: 'from-amber-500 to-orange-500' },
+  { path: '/practice', icon: PenTool, title: 'Practice Problems', desc: '160+ verified MCQs with timed test mode, scoring & progress tracking', color: 'from-amber-500 to-orange-500' },
   { path: '/videos', icon: PlayCircle, title: 'Video Lectures', desc: 'Curated YouTube channels & search links — Physics Wallah, Mohit Tyagi & more', color: 'from-red-500 to-pink-500' },
   { path: '/planner', icon: CalendarDays, title: 'Study Planner', desc: 'Weekly study schedules for JEE + CBSE board prep', color: 'from-purple-500 to-violet-500' },
   { path: '/resources', icon: Globe, title: 'Resources & Links', desc: 'NCERT textbooks, PYQs, useful websites, and curated study material', color: 'from-cyan-500 to-teal-500' },
+  { path: '/dashboard', icon: BarChart3, title: 'Dashboard', desc: 'Track your progress, identify weak areas, and maintain study streaks', color: 'from-slate-500 to-zinc-500' },
 ];
 
 const STATS = [

@@ -161,8 +161,22 @@ export default function Syllabus() {
                     {/* Static Formulas (always available — no AI needed) */}
                     {formulas.length > 0 && (
                       <div className="bg-cyan-900/15 border border-cyan-500/20 rounded-lg p-4 mt-2 mb-3">
-                        <div className="flex items-center gap-2 mb-3 text-cyan-400 text-sm font-medium">
-                          <Zap className="w-4 h-4" /> Key Formulas (built-in — no AI needed)
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-2 text-cyan-400 text-sm font-medium">
+                            <Zap className="w-4 h-4" /> Key Formulas (built-in — no AI needed)
+                          </div>
+                          <button onClick={() => {
+                            const w = window.open('', '_blank');
+                            w.document.write('<html><head><title>Formulas - ' + ch.name + '</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"><style>body{font-family:system-ui;padding:20px;max-width:700px;margin:0 auto}h1{font-size:1.3em;margin-bottom:10px}.f{margin:6px 0;display:flex;gap:12px;align-items:baseline}.fm{font-size:1.1em}.desc{color:#666;font-size:0.85em}@media print{body{padding:0}}</style></head><body><h1>' + ch.name + ' — Formulas</h1>');
+                            formulas.forEach(f => {
+                              const clean = f.formula.replace(/\$/g, '');
+                              w.document.write('<div class="f"><span class="fm">' + f.formula + '</span><span class="desc">— ' + f.desc + '</span></div>');
+                            });
+                            w.document.write('<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"><\/script><script>document.querySelectorAll(".fm").forEach(el=>{try{const t=el.textContent.replace(/\\$/g,"");katex.render(t,el,{throwOnError:false})}catch(e){}})<\/script></body></html>');
+                            w.document.close();
+                          }} className="text-xs bg-cyan-600/20 text-cyan-300 px-2 py-1 rounded hover:bg-cyan-600/30">
+                            🖨 Print
+                          </button>
                         </div>
                         <div className="space-y-2">
                           {formulas.map((f, j) => (

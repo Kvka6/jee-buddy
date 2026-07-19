@@ -7,6 +7,7 @@ import Practice from './pages/Practice';
 import Videos from './pages/Videos';
 import Planner from './pages/Planner';
 import Resources from './pages/Resources';
+import Dashboard from './pages/Dashboard';
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/videos" element={<Videos />} />
           <Route path="/planner" element={<Planner />} />
           <Route path="/resources" element={<Resources />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </main>
     </div>

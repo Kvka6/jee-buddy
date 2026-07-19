@@ -1,0 +1,45 @@
+const CACHE_NAME = 'jee-buddy-v2';
+const STATIC_ASSETS = ['/', '/index.html'];
+
+self.addEventListener('install', (e) => {
+  e.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_ASSETS))
+  );
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
+    caches.keys().then((names) =>
+      Promise.all(names.filter((n) => n !== CACHE_NAME).map((n) => caches.delete(n)))
+    )
+  );
+  self.clients.claim();
+});
+
+self.addEventListener('fetch', (e) => {
+  if (e.request.method !== 'GET') return;
+  const url = new URL(e.request.url);
+
+  // API calls: network-first
+  if (url.pathname.startsWith('/api') || url.hostname !== self.location.hostname) {
+    e.respondWith(
+      fetch(e.request).catch(() => caches.match(e.request))
+    );
+    return;
+  }
+
+  // Static assets: cache-first
+  e.respondWith(
+    caches.match(e.request).then((cached) => {
+      const fetchPromise = fetch(e.request).then((response) => {
+        if (response.ok) {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(e.request, clone));
+        }
+        return response;
+      }).catch(() => cached);
+      return cached || fetchPromise;
+    })
+  );
+});
