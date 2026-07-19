@@ -114,17 +114,19 @@ async function tryGroq(systemPrompt, userMessage) {
   return null;
 }
 
-// --- Main call: Gemini → Groq fallback ---
+// --- Main call: Groq → Gemini fallback ---
 async function callGemini(systemPrompt, userMessage) {
-  // Try Gemini first
-  const geminiResult = await tryGemini(systemPrompt, userMessage);
-  if (geminiResult) return geminiResult;
-
-  // Fallback to Groq
+  // Try Groq first (primary)
   if (groqKeys.length > 0) {
-    console.log("[AI] Gemini exhausted, falling back to Groq...");
     const groqResult = await tryGroq(systemPrompt, userMessage);
     if (groqResult) return groqResult;
+  }
+
+  // Fallback to Gemini
+  if (geminiKeys.length > 0) {
+    console.log("[AI] Groq exhausted, falling back to Gemini...");
+    const geminiResult = await tryGemini(systemPrompt, userMessage);
+    if (geminiResult) return geminiResult;
   }
 
   // All providers exhausted
